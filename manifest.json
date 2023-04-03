@@ -1,0 +1,22 @@
+{
+  "name": "Desmos Image Download",
+  "description": "Download a Desmos teacher dashboard by Image. (unofficial)",
+  "version": "1",
+  "manifest_version": 3,
+  "permissions": ["scripting", "activeTab", "nativeMessaging"],
+  "action": {
+    "default_title": "Desmos Image Download",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "32": "icons/32x32.png",
+    "64": "icons/64x64.png",
+    "128": "icons/128x128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["/jszip.min.js", "/download.js"]
+    }
+  ]
+}
