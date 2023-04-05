@@ -17,7 +17,7 @@
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Two Images on Top of Each Other</title>
+        <title>Two Images on Top of Each Other BRUH</title>
         <link rel="stylesheet" href="index.css" />
       </head>
       <body>
