@@ -1,0 +1,21 @@
+html {
+    height: 100%;
+    width: 100%;
+  }
+  
+  #image1,
+  #image2 {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    width: 650px;
+    height: 650px;
+  }
+  
+  #image2 {
+    z-index: -1;
+  }
+
+  #image2.hidden {
+    display: none;
+  }
