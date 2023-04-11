@@ -3,7 +3,13 @@
   "use strict";
 
   // basic getbyID stuff and if clicked
-  let prevZoom = 1;
+  let prevZoom;
+  
+  // get the resize window message to bring it back to original
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.message !== "resize") return;
+    chrome.tabs.setZoom(prevZoom);
+  });
 
   document
     .getElementById("desmosDashboardDownload")
@@ -23,11 +29,6 @@
         });
       });
 
-      // get the resize window message to bring it back to original
-      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.message !== "resize") return;
-        chrome.tabs.setZoom(prevZoom);
-      });
 
       // and close the window immediately after clicking
       window.close();
