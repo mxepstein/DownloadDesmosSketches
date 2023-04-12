@@ -1,5 +1,5 @@
 (() => {
-  // not sure what use strict does
+  // Strict mode prevents undeclared variables from being used
   "use strict";
 
   // initialize JSZip object (called in popup.js)
@@ -17,8 +17,12 @@
   for (let i = 0; i < canvases.length; i++) {
     images.file(`image-${i}.png`, ctoi(canvases[i]));
   }
-  // after finished scraping canvases, resize window
-  chrome.runtime.sendMessage({ message: "resize" });
+  
+  // after finished scraping canvases, resize window  
+  chrome.runtime.sendMessage({
+      throw new Error("HOORAY I WANT TO RESIZE"); //This line ever happens?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      message: "resize",
+  });
 
   // find the "original background" element and extract the URL source
   const div = document.getElementsByClassName("image-background-div")[0];
@@ -45,14 +49,16 @@
     // fetch the URL image and store its blob
     requests.push(
       fetch(url)
-        .then((response) => response.blob())
-        .then((blob) => zip.file(fileName, blob))
+      .then((response) => response.blob())
+      .then((blob) => zip.file(fileName, blob))
     );
   });
 
   // after all the requests are done...
   Promise.all(requests)
-    .then(() => zip.generateAsync({ type: "blob" }))
+    .then(() => zip.generateAsync({
+      type: "blob"
+    }))
     .then((content) => {
       // create a download link and click it
       var downloadLink = document.createElement("a");
@@ -73,7 +79,9 @@
     }
     // turn that into a byte array and return it as a png blob
     const byteArray = new Uint8Array(byteNumber);
-    const blob = new Blob([byteArray], { type: "image/png" });
+    const blob = new Blob([byteArray], {
+      type: "image/png"
+    });
     return blob;
   }
 })();
