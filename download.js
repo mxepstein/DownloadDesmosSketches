@@ -20,7 +20,7 @@
   
   // after finished scraping canvases, resize window  
   chrome.runtime.sendMessage({
-      throw new Error("HOORAY I WANT TO RESIZE"); //This line ever happens?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //throw new Error("HOORAY I WANT TO RESIZE"); //This line ever happens?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       message: "resize",
   });
 
