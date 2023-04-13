@@ -20,7 +20,7 @@
   
   // after finished scraping canvases, resize window  
   chrome.runtime.sendMessage({
-      //throw new Error("HOORAY I WANT TO RESIZE"); //This line ever happens?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //SENDING THIS MESSAGE CAUSES AN ERROR "Uncaught (in promise) Error: Could not establish connection. Receiving end does not exist."
       message: "resize",
   });
 
