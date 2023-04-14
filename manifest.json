@@ -19,10 +19,10 @@
         "*://*/*"
     ],
     "background": {
-        "service_worker": "service-worker.js"
+        "service_worker": "Background-Service-Worker.js"
     },
     "content_scripts": [{
-        "js": ["foregroundContent.js"],
+        "js": ["Foreground-Content.js"],
         "matches": ["https://teacher.desmos.com/dashboard/*"]
     }],
     "web_accessible_resources": [
