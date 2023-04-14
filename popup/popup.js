@@ -4,6 +4,7 @@
       let tab = await chrome.tabs.query(queryOptions);
       var prevZoom;
 
+
       // Zoom in
       chrome.tabs.getZoom().then((zoom) => {
           prevZoom = zoom; // Get the current zoom status
@@ -16,7 +17,7 @@
                       message: "doStuff",
                   },
                   function(response) {
-                      //chrome.tabs.setZoom(1);
+                      chrome.tabs.setZoom(0.1);
                   }
               );
               ////////////////////////////////
