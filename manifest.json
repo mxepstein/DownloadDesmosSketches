@@ -1,25 +1,31 @@
 {
-  "name": "Desmos Image Download",
-  "description": "Download a Desmos teacher dashboard by Image. (unofficial)",
-  "version": "1",
-  "manifest_version": 3,
-  "permissions": ["scripting", "activeTab", "nativeMessaging"],
-  "action": {
-    "default_title": "Desmos Image Download",
-    "default_popup": "popup.html"
-  },
-  "icons": {
-    "32": "icons/32x32.png",
-    "64": "icons/64x64.png",
-    "128": "icons/128x128.png"
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["/jszip.min.js", "/download.js"]
-    }
-  ],
-  "web_accessible_resources": [
+    // Comments are accepted in the manifest, even though it is JSON.
+    "manifest_version": 3,
+    "name": "Desmos Gallery Download",
+    "description": "Download the gallery of Desmos sketches (unofficial)",
+    "version": "2.0.0",
+    "icons": {
+        "32": "icons/32x32.png",
+        "64": "icons/64x64.png",
+        "128": "icons/128x128.png"
+    },
+    "options_page": "settings/settings.html",
+    "action": {
+        "default_title": "Desmos Gallery Download",
+        "default_popup": "popup/popup.html"
+    },
+    "permissions": ["scripting", "activeTab", "nativeMessaging"], //do we need nateiveMessaging? gedit 
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "background": {
+        "service_worker": "service-worker.js"
+    },
+    "content_scripts": [{
+        "js": ["foregroundContent.js"],
+        "matches": ["https://teacher.desmos.com/dashboard/*"]
+    }],
+    "web_accessible_resources": [
     {
       "resources": [
         "previewer/index.css",
