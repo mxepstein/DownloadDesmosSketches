@@ -17,7 +17,7 @@
                       message: "doStuff",
                   },
                   function(response) {
-                      chrome.tabs.setZoom(0.1);
+                      chrome.tabs.setZoom(prevZoom);
                   }
               );
               ////////////////////////////////
