@@ -17,7 +17,7 @@ for (let i = 1; i <= 100; i++) {
 
 const backgroundGridContainer = document.querySelector('.background-container .grid-container');
 const foregroundGridContainer = document.querySelector('.foreground-container .grid-container');
-for (let i = 1; i <= 1000; i++) {
+for (let i = 0; i < numberOfImages; i++) {
   const backgroundImg = document.createElement('img');
   backgroundImg.src = `background.png`;
   backgroundGridContainer.appendChild(backgroundImg);

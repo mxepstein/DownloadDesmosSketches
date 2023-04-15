@@ -12,11 +12,3 @@ importScripts('service-worker-utils.js')
 
 
 
-
-
-
-
-chrome.runtime.onMessage.addListener((request, sender, reply) => {
-  console.log("listening");
-});
-

@@ -19,11 +19,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 // End JSZIP //
 
 
- chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+ chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
     if (request.message === "Please get the sketches and download the zip") {
-        runDoStuff();
+        await runDoStuff();
         sendResponse({ status: "done" });
     }
+    return true; //keep the message port open
 });
 
 
@@ -36,7 +37,7 @@ async function runDoStuff() {
 
     //Get the sketches and create files
     const canvases = document.getElementsByClassName("sketch-surface");
-    if (canvases.length == 0) return;
+    if (canvases.length == 0) return{ status: "failure", message: "No sketches on this page" };;
     for (let i = 0; i < canvases.length; i++) {
         images.file(`image-${i}.png`, ctoi(canvases[i]));
     }
@@ -49,6 +50,12 @@ async function runDoStuff() {
     const imageUrl = backgroundImage
         .replace(/^url\(["']?/, "")
         .replace(/["']?\)$/, "");
+
+
+    //Save the number of canvases so that the gallery can know how many to show
+    var tinyScript = "var numberOfImages="+canvases.length+";";
+    var tinyBlob = new Blob([tinyScript], { type: 'text/javascript' });
+    zip.file('numberOfImages.js', tinyBlob);
 
     //Prepare gallery template and the background image
     const files = [
@@ -65,16 +72,16 @@ async function runDoStuff() {
             .then((blob) => zip.file(fileName, blob))
         );
     });
-
-    //Wait for all requests to complete
-    await Promise.all(requests);
+    await Promise.all(requests);    //Wait for all requests to complete
 
     //Generate the zip file and download it
     const content = await zip.generateAsync({ type: "blob" });
     var downloadLink = document.createElement("a");
     downloadLink.href = URL.createObjectURL(content);
-    downloadLink.download = "canvases.zip";
+    downloadLink.download = "Desmos-Sketches-Gallery.zip";
     downloadLink.click();
+
+    return { status: "success", message: "Zip file generated and downloaded" };
 }
 
 

@@ -21,5 +21,4 @@ sendMessageButton.onclick = async function(e) {
             ////////////////////////////////
         });
     });
-    //window.close();
 };
