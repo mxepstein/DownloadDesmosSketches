@@ -1,0 +1,64 @@
+/*
+.background-grid-container,
+.foreground-grid-container {
+  position:absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding:20px;
+}
+
+
+img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc; 
+}
+*/
+
+:root {
+  --slider-value: 200px;
+}
+
+
+.container {
+  position: relative;
+  height: 100px; /* Set the height of the container to the height of the grids */
+}
+
+.background-container, .foreground-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background-container {
+  z-index: -1; 
+}
+
+.foreground-container {
+  z-index: 2; 
+}
+
+.grid-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(var(--slider-value), 1fr));
+  height: 100%;
+}
+
+.grid-container img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc; 
+}
+
+
+
+
+
