@@ -1,28 +1,6 @@
-/*
-.background-grid-container,
-.foreground-grid-container {
-  position:absolute;
-  top: 0;
-  left: 0;
-  display: grid;
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  padding:20px;
-}
-
-
-img {
-  position: relative;
-  width: 100%;
-  height: auto;
-  border: 1px solid #ccc; 
-}
-*/
-
 :root {
   --slider-value: 200px;
 }
-
 
 .container {
   position: relative;
@@ -56,13 +34,7 @@ img {
   width: 100%;
   height: auto;
   border: 1px solid #ccc; 
-  /*background-color: #fff; */
 }
-
-/*
-body{
-  background-color: #888;
-} */
 
 
 
