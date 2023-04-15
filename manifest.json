@@ -22,7 +22,7 @@
         "service_worker": "Background-Service-Worker.js"
     },
     "content_scripts": [{
-        "js": ["Foreground-Content.js"],
+        "js": ["jszip.min.js","Foreground-Content.js"],
         "matches": ["https://teacher.desmos.com/dashboard/*"]
     }],
     "web_accessible_resources": [
