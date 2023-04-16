@@ -14,7 +14,7 @@
         "default_title": "Desmos Gallery Download",
         "default_popup": "popup/popup.html"
     },
-    "permissions": ["scripting", "activeTab", "nativeMessaging"], //do we need nateiveMessaging? gedit 
+    "permissions": ["scripting", "activeTab", "tabs","nativeMessaging"], //do we need nateiveMessaging? gedit 
     "host_permissions": [
         "*://*/*"
     ],

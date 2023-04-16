@@ -3,19 +3,19 @@
 // (see "content_script" key).
 // Several foreground scripts can be declared
 // and injected into the same or different pages.
-//console.log("This prints to the console of the page (injected only if the page url matched)");
-
 
  chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
     if (request.message === "Please get the sketches and download the zip") {
+        const start = performance.now();
         await runDoStuff();
+        const end = performance.now();
+        console.log(`runDoStuff() took ${end - start} milliseconds to complete.`);
         sendResponse({ status: "done" });
     }
-    return true; //keep the message port open
 });
 
-
 async function runDoStuff() {
+
     "use strict"; // Strict mode prevents undeclared variables from being used
 
     //Initialize zip object and create images folder
@@ -38,7 +38,7 @@ async function runDoStuff() {
         .replace(/^url\(["']?/, "")
         .replace(/["']?\)$/, "");
 
-
+ 
     //Save the number of canvases so that the gallery can know how many to show
     var tinyScript = "var numberOfImages="+canvases.length+";";
     var tinyBlob = new Blob([tinyScript], { type: 'text/javascript' });
@@ -59,6 +59,7 @@ async function runDoStuff() {
             .then((blob) => zip.file(fileName, blob))
         );
     });
+    
     await Promise.all(requests);    //Wait for all requests to complete
 
     //Generate the zip file and download it
