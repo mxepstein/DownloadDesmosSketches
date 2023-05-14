@@ -3,7 +3,7 @@
     "manifest_version": 3,
     "name": "Desmos Gallery Download",
     "description": "Download the gallery of Desmos sketches (unofficial)",
-    "version": "0.5.0",
+    "version": "1.0.0",
     "icons": {
         "32": "icons/32x32.png",
         "64": "icons/64x64.png",
@@ -14,7 +14,7 @@
         "default_title": "Desmos Gallery Download",
         "default_popup": "popup/popup.html"
     },
-    "permissions": ["scripting", "activeTab", "tabs","nativeMessaging"], //do we need nateiveMessaging? gedit 
+    "permissions": ["scripting", "activeTab", "tabs"], 
     "host_permissions": [
         "*://*/*"
     ],
