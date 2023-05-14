@@ -4,7 +4,7 @@
 // Several foreground scripts can be declared
 // and injected into the same or different pages.
 
- chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(async function(request, sender, sendResponse) {
     if (request.message === "Please get the sketches and download the zip") {
         const start = performance.now();
         await runDoStuff();
@@ -20,37 +20,49 @@ async function runDoStuff() {
 
     //Initialize zip object and create images folder
     const zip = new JSZip(); // initialize   ip object (called in popup.js)
-    const images = zip.folder("images");
+    const images = zip.folder("sketches");
+    const backgrounds = zip.folder("backgrounds");
 
     //Get the sketches and create files
     const canvases = document.getElementsByClassName("sketch-surface");
-    if (canvases.length == 0) return{ status: "failure", message: "No sketches on this page" };;
+    if (canvases.length == 0) return { status: "failure", message: "No sketches on this page" };;
     for (let i = 0; i < canvases.length; i++) {
-        images.file(`image-${i}.png`, ctoi(canvases[i]));
+        images.file(`sketch-${i}.png`, ctoi(canvases[i]));
     }
 
 
-    //Get the background image
-    const div = document.getElementsByClassName("image-background-div")[0];
-    const computedStyle = window.getComputedStyle(div);
-    const backgroundImage = computedStyle.backgroundImage;
-    const imageUrl = backgroundImage
-        .replace(/^url\(["']?/, "")
-        .replace(/["']?\)$/, "");
+    // Get the background images
+    const divs = document.getElementsByClassName("image-background-div");
+    const imageUrls = []; // Array to store all image URLs
+    for (let div of divs) {
+        const computedStyle = window.getComputedStyle(div);
+        const backgroundImage = computedStyle.backgroundImage;
+        const imageUrl = backgroundImage
+            .replace(/^url\(["']?/, "")
+            .replace(/["']?\)$/, "");
+        imageUrls.push(imageUrl); // Add each image URL to the array
+    }
 
- 
+
     //Save the number of canvases so that the gallery can know how many to show
-    var tinyScript = "var numberOfImages="+canvases.length+";";
+    var tinyScript = "var numberOfImages=" + canvases.length + ";";
     var tinyBlob = new Blob([tinyScript], { type: 'text/javascript' });
-    zip.file('numberOfImages.js', tinyBlob);
+    zip.file('/other/numberOfImages.js', tinyBlob);
 
     //Prepare gallery template and the background image
     const files = [
-        [imageUrl, "background.png"],
         [chrome.runtime.getURL("galleryTemplate/index.html"), "index.html"],
-        [chrome.runtime.getURL("galleryTemplate/script.js"), "script.js"],
-        [chrome.runtime.getURL("galleryTemplate/style.css"), "style.css"],
+        [chrome.runtime.getURL("galleryTemplate/script.js"), "other/script.js"],
+        [chrome.runtime.getURL("galleryTemplate/style.css"), "other/style.css"],
     ];
+
+
+    // Iterate over each image URL and create a file entry for it
+    for (let i = 0; i < imageUrls.length; i++) {
+        files.push([imageUrls[i], `backgrounds/background-${i}.png`]);
+    }
+
+
     let requests = [];
     files.forEach(([url, fileName]) => {
         requests.push(
@@ -59,8 +71,8 @@ async function runDoStuff() {
             .then((blob) => zip.file(fileName, blob))
         );
     });
-    
-    await Promise.all(requests);    //Wait for all requests to complete
+
+    await Promise.all(requests); //Wait for all requests to complete
 
     //Generate the zip file and download it
     const content = await zip.generateAsync({ type: "blob" });

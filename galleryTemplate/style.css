@@ -30,13 +30,22 @@
   height: 100%;
 }
 
-.grid-container img {
+
+.grid-container div {
   width: 100%;
-  height: auto;
-  border: 1px solid #ccc; 
+  padding-bottom: 100%;
+  position: relative;
 }
 
-
+.grid-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
 
 
 
