@@ -1,7 +1,6 @@
 {
-    // Comments are accepted in the manifest, even though it is JSON.
+    "name": "Desmos Sketches Gallery Download",
     "manifest_version": 3,
-    "name": "Desmos Gallery Download",
     "description": "Download the gallery of Desmos sketches (unofficial)",
     "version": "1.0.0",
     "icons": {
@@ -15,9 +14,7 @@
         "default_popup": "popup/popup.html"
     },
     "permissions": ["scripting", "activeTab", "tabs"], 
-    "host_permissions": [
-        "*://*/*"
-    ],
+    
     "background": {
         "service_worker": "Background-Service-Worker.js"
     },
